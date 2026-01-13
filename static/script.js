@@ -1,6 +1,8 @@
 let currentStep = 0;
 const totalSteps = 5;
 let selectedDistrict = '';
+let activeAlert = null;
+const GENERIC_ERROR_MESSAGE = "Lütfen gerekli tüm alanları girdiğinizden emin olun!";
 
 // Sayfa yüklendiğinde
 document.addEventListener('DOMContentLoaded', function() {
@@ -227,52 +229,66 @@ function updateStepDisplay() {
 }
 
 function validateCurrentStep() {
+    let isValid = true; // Genel validasyon durumu
+
     if (currentStep === 0) {
-        // Konum adımı için özel validasyon
         const district = document.getElementById('District').value;
         const neighborhood = document.getElementById('Neighborhood').value;
 
+        // District kontrolü
         if (!district || district.trim() === '') {
             document.querySelector('#district-select .select-selected').style.borderColor = '#ef4444';
-            alert('Lütfen bir ilçe seçin.');
-            return false;
+            isValid = false;
         } else {
             document.querySelector('#district-select .select-selected').style.borderColor = '#d1d5db';
         }
 
+        // Neighborhood kontrolü
         if (!neighborhood || neighborhood.trim() === '') {
             document.getElementById('Neighborhood').style.borderColor = '#ef4444';
-            alert('Lütfen mahalle adını girin.');
-            return false;
+            isValid = false;
         } else {
             document.getElementById('Neighborhood').style.borderColor = '#d1d5db';
         }
 
-        return true;
+        if (!isValid) showAlert(GENERIC_ERROR_MESSAGE);
+        return isValid;
     }
 
     if (currentStep === 1) {
-        // Konut Bilgileri validasyonu
         const requiredFields = [
-            { id: 'm2_Net', name: 'Net Metrekare' },
-            { id: 'Room_number', name: 'Oda Sayısı', selectId: 'room-select' },
-            { id: 'Livingroom_number', name: 'Salon Sayısı' },
-            { id: 'Number_of_bathrooms', name: 'Banyo Sayısı' },
-            { id: 'Building_Age', name: 'Bina Yaşı', selectId: 'age-select' },
-            { id: 'Floor_location', name: 'Bulunduğu Kat', selectId: 'floor-location-select' },
-            { id: 'Number_of_floors', name: 'Toplam Kat Sayısı', selectId: 'total-floors-select' }
+            { id: 'm2_Net' },
+            { id: 'Room_number', selectId: 'room-select' },
+            { id: 'Livingroom_number' },
+            { id: 'Number_of_bathrooms' },
+            { id: 'Building_Age', selectId: 'age-select' },
+            { id: 'Floor_location', selectId: 'floor-location-select' },
+            { id: 'Number_of_floors', selectId: 'total-floors-select' }
         ];
 
-        for (let field of requiredFields) {
+        requiredFields.forEach(field => {
             const element = document.getElementById(field.id);
+
+            // + / - butonlarına basınca sadece borderı eski haline döndür
+            if (['m2_Net', 'Livingroom_number', 'Number_of_bathrooms'].includes(field.id)) {
+                const container = element.closest('.input-with-controls'); // input ve butonları saran div
+                if (container) {
+                    container.querySelectorAll('.control-btn').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            element.style.borderColor = '#d1d5db'; // border griye dönsün
+                        });
+                    });
+                }
+            }
+
+            // Validasyon
             if (!element.value || element.value.trim() === '') {
                 if (field.selectId) {
                     document.querySelector(`#${field.selectId} .select-selected`).style.borderColor = '#ef4444';
                 } else {
                     element.style.borderColor = '#ef4444';
                 }
-                alert(`Lütfen ${field.name} alanını doldurun.`);
-                return false;
+                isValid = false;
             } else {
                 if (field.selectId) {
                     document.querySelector(`#${field.selectId} .select-selected`).style.borderColor = '#d1d5db';
@@ -280,36 +296,46 @@ function validateCurrentStep() {
                     element.style.borderColor = '#d1d5db';
                 }
             }
-        }
-        return true;
+        });
+
+        requiredFields.forEach(field => {
+            const element = document.getElementById(field.id);
+            console.log(`${field.id}:`, element.value);
+        });
+
+        if (!isValid) showAlert(GENERIC_ERROR_MESSAGE);
+        return isValid;
     }
 
+
+
+
     if (currentStep === 2) {
-        // Bina Bilgileri validasyonu
         const requiredFields = [
-            { id: 'Heating', name: 'Isınma Tipi', selectId: 'heating-select' },
-            { id: 'Available_for_Loan', name: 'Krediye Uygun', selectId: 'loan-select' },
-            { id: 'From_who', name: 'Kimden', selectId: 'fromwho-select' }
+            { id: 'Heating', selectId: 'heating-select' },
+            { id: 'Available_for_Loan', selectId: 'loan-select' },
+            { id: 'From_who', selectId: 'fromwho-select' },
+            { id: 'Laminate_Floor', selectId: 'floor-select' }
         ];
 
-        for (let field of requiredFields) {
+        requiredFields.forEach(field => {
             const element = document.getElementById(field.id);
             if (!element.value || element.value.trim() === '') {
                 document.querySelector(`#${field.selectId} .select-selected`).style.borderColor = '#ef4444';
-                alert(`Lütfen ${field.name} alanını seçin.`);
-                return false;
+                isValid = false;
             } else {
                 document.querySelector(`#${field.selectId} .select-selected`).style.borderColor = '#d1d5db';
             }
-        }
-        return true;
+        });
+
+        if (!isValid) showAlert(GENERIC_ERROR_MESSAGE);
+        return isValid;
     }
 
-    // Diğer adımlar için basit validasyon
+    // Diğer adımlar için genel input validasyonu
     const currentContent = document.getElementById(`content-${currentStep}`);
     const requiredInputs = currentContent.querySelectorAll('input[required]:not([type="hidden"])');
 
-    let isValid = true;
     requiredInputs.forEach(input => {
         if (!input.value || input.value.trim() === '') {
             input.style.borderColor = '#ef4444';
@@ -319,12 +345,10 @@ function validateCurrentStep() {
         }
     });
 
-    if (!isValid) {
-        alert('Lütfen tüm zorunlu alanları doldurun.');
-    }
-
+    if (!isValid) showAlert(GENERIC_ERROR_MESSAGE);
     return isValid;
 }
+
 
 function getCheckboxValue(id) {
     return document.getElementById(id).checked ? 1 : 0;
@@ -442,7 +466,11 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.addEventListener("click", () => {
             const input = btn.closest(".input-with-controls").querySelector("input");
             let value = parseInt(input.value) || 0;
-            input.value = value + 1;
+
+            // Sadece m2_Net id'si için step 5, diğerleri 1
+            const step = input.id === "m2_Net" ? 5 : 1;
+            const max = parseInt(input.max) || Infinity;
+            input.value = Math.min(value + step, max);
         });
     });
 
@@ -450,9 +478,67 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.addEventListener("click", () => {
             const input = btn.closest(".input-with-controls").querySelector("input");
             let value = parseInt(input.value) || 0;
-            if (value > 0) {
-                input.value = value - 1;
-            }
+
+            const step = input.id === "m2_Net" ? 5 : 1;
+            const min = parseInt(input.min) || 0;
+            input.value = Math.max(value - step, min);
         });
     });
 });
+
+
+function showAlert(message, type = "error", duration = 4000) {
+    // Eski alert varsa kapat
+    if (activeAlert) {
+        activeAlert.remove();
+        activeAlert = null;
+    }
+
+    let container = document.getElementById("alert-container");
+    if (!container) {
+        container = document.createElement("div");
+        container.id = "alert-container";
+        document.body.appendChild(container);
+    }
+
+    const alert = document.createElement("div");
+    alert.className = `custom-alert ${type}`;
+    alert.innerHTML = `
+        <span>${message}</span>
+        <button class="close-btn">&times;</button>
+        <div class="timer-bar"></div>
+    `;
+
+    container.appendChild(alert);
+    activeAlert = alert;
+
+    const timerBar = alert.querySelector(".timer-bar");
+    timerBar.style.animationDuration = `${duration}ms`;
+
+    let timeout = setTimeout(() => {
+        alert.remove();
+        activeAlert = null;
+    }, duration);
+
+    // Hover → timer durur
+    alert.addEventListener("mouseenter", () => {
+        clearTimeout(timeout);
+        timerBar.style.animationPlayState = "paused";
+    });
+
+    // Mouse çıkınca → devam
+    alert.addEventListener("mouseleave", () => {
+        timerBar.style.animationPlayState = "running";
+        timeout = setTimeout(() => {
+            alert.remove();
+            activeAlert = null;
+        }, 2000);
+    });
+
+    // X ile kapatma
+    alert.querySelector(".close-btn").addEventListener("click", () => {
+        alert.remove();
+        activeAlert = null;
+    });
+}
+

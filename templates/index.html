@@ -7,579 +7,752 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Adım İlerleme Çubuğu -->
-        <div class="progress-container">
-            <div class="step" id="step-0">
-                <div class="step-icon active">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                </div>
-                <div class="step-label">Konum</div>
+<div class="container">
+    <!-- Adım İlerleme Çubuğu -->
+    <div class="progress-container">
+        <div class="step" id="step-0">
+            <div class="step-icon active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
             </div>
-            <div class="step-line"></div>
-            <div class="step" id="step-1">
-                <div class="step-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
-                </div>
-                <div class="step-label">Konut Bilgileri</div>
-            </div>
-            <div class="step-line"></div>
-            <div class="step" id="step-2">
-                <div class="step-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
-                        <path d="M9 22v-4h6v4"></path>
-                        <path d="M8 6h.01"></path>
-                        <path d="M16 6h.01"></path>
-                        <path d="M12 6h.01"></path>
-                        <path d="M12 10h.01"></path>
-                        <path d="M12 14h.01"></path>
-                        <path d="M16 10h.01"></path>
-                        <path d="M16 14h.01"></path>
-                        <path d="M8 10h.01"></path>
-                        <path d="M8 14h.01"></path>
-                    </svg>
-                </div>
-                <div class="step-label">Bina Bilgileri</div>
-            </div>
-            <div class="step-line"></div>
-            <div class="step" id="step-3">
-                <div class="step-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                    </svg>
-                </div>
-                <div class="step-label">Diğer Bilgiler</div>
-            </div>
-            <div class="step-line"></div>
-            <div class="step" id="step-4">
-                <div class="step-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
-                </div>
-                <div class="step-label">Sonuç</div>
-            </div>
+            <div class="step-label">Konum</div>
         </div>
-
-        <!-- Form Container -->
-        <div class="form-container">
-            <!-- Adım 0: Konum -->
-            <div class="step-content active" id="content-0">
-                <div class="step-header">
-                    <h2>Konum</h2>
-                    <p>Lütfen konum bilgisini girin.</p>
-                </div>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>İl <span class="required">*</span></label>
-                        <div class="custom-select disabled">
-                            <div class="select-selected">İstanbul</div>
-                        </div>
-                        <input type="hidden" id="City" value="İstanbul">
-                    </div>
-                    <div class="arrow-icon">→</div>
-                    <div class="form-group">
-                        <label>İlçe <span class="required">*</span></label>
-                        <div class="custom-select" id="district-select">
-                            <div class="select-selected" onclick="toggleDistrictDropdown()">
-                                <span id="selected-district">İlçe Seç</span>
-                                <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="select-items" id="district-items">
-                                <div class="search-box">
-                                    <input type="text" id="district-search" placeholder="İlçe ara" oninput="filterDistricts()">
-                                </div>
-                                <div class="select-options" id="district-options">
-                                    <div class="select-option" onclick="selectDistrict('Adalar')">Adalar</div>
-                                    <div class="select-option" onclick="selectDistrict('Arnavutköy')">Arnavutköy</div>
-                                    <div class="select-option" onclick="selectDistrict('Ataşehir')">Ataşehir</div>
-                                    <div class="select-option" onclick="selectDistrict('Avcılar')">Avcılar</div>
-                                    <div class="select-option" onclick="selectDistrict('Bağcılar')">Bağcılar</div>
-                                    <div class="select-option" onclick="selectDistrict('Bahçelievler')">Bahçelievler</div>
-                                    <div class="select-option" onclick="selectDistrict('Bakırköy')">Bakırköy</div>
-                                    <div class="select-option" onclick="selectDistrict('Başakşehir')">Başakşehir</div>
-                                    <div class="select-option" onclick="selectDistrict('Bayrampaşa')">Bayrampaşa</div>
-                                    <div class="select-option" onclick="selectDistrict('Beşiktaş')">Beşiktaş</div>
-                                    <div class="select-option" onclick="selectDistrict('Beykoz')">Beykoz</div>
-                                    <div class="select-option" onclick="selectDistrict('Beylikdüzü')">Beylikdüzü</div>
-                                    <div class="select-option" onclick="selectDistrict('Beyoğlu')">Beyoğlu</div>
-                                    <div class="select-option" onclick="selectDistrict('Büyükçekmece')">Büyükçekmece</div>
-                                    <div class="select-option" onclick="selectDistrict('Çatalca')">Çatalca</div>
-                                    <div class="select-option" onclick="selectDistrict('Çekmeköy')">Çekmeköy</div>
-                                    <div class="select-option" onclick="selectDistrict('Esenler')">Esenler</div>
-                                    <div class="select-option" onclick="selectDistrict('Esenyurt')">Esenyurt</div>
-                                    <div class="select-option" onclick="selectDistrict('Eyüpsultan')">Eyüpsultan</div>
-                                    <div class="select-option" onclick="selectDistrict('Fatih')">Fatih</div>
-                                    <div class="select-option" onclick="selectDistrict('Gaziosmanpaşa')">Gaziosmanpaşa</div>
-                                    <div class="select-option" onclick="selectDistrict('Güngören')">Güngören</div>
-                                    <div class="select-option" onclick="selectDistrict('Kadıköy')">Kadıköy</div>
-                                    <div class="select-option" onclick="selectDistrict('Kağıthane')">Kağıthane</div>
-                                    <div class="select-option" onclick="selectDistrict('Kartal')">Kartal</div>
-                                    <div class="select-option" onclick="selectDistrict('Küçükçekmece')">Küçükçekmece</div>
-                                    <div class="select-option" onclick="selectDistrict('Maltepe')">Maltepe</div>
-                                    <div class="select-option" onclick="selectDistrict('Pendik')">Pendik</div>
-                                    <div class="select-option" onclick="selectDistrict('Sancaktepe')">Sancaktepe</div>
-                                    <div class="select-option" onclick="selectDistrict('Sarıyer')">Sarıyer</div>
-                                    <div class="select-option" onclick="selectDistrict('Silivri')">Silivri</div>
-                                    <div class="select-option" onclick="selectDistrict('Sultanbeyli')">Sultanbeyli</div>
-                                    <div class="select-option" onclick="selectDistrict('Sultangazi')">Sultangazi</div>
-                                    <div class="select-option" onclick="selectDistrict('Şile')">Şile</div>
-                                    <div class="select-option" onclick="selectDistrict('Şişli')">Şişli</div>
-                                    <div class="select-option" onclick="selectDistrict('Tuzla')">Tuzla</div>
-                                    <div class="select-option" onclick="selectDistrict('Ümraniye')">Ümraniye</div>
-                                    <div class="select-option" onclick="selectDistrict('Üsküdar')">Üsküdar</div>
-                                    <div class="select-option" onclick="selectDistrict('Zeytinburnu')">Zeytinburnu</div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="District" required>
-                    </div>
-                    <div class="arrow-icon">→</div>
-                    <div class="form-group">
-                        <label>Mahalle <span class="required">*</span></label>
-                        <input type="text" id="Neighborhood" placeholder="Mahalle adını girin" required>
-                    </div>
-                </div>
+        <div class="step-line"></div>
+        <div class="step" id="step-1">
+            <div class="step-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
             </div>
-
-            <!-- Adım 1: Konut Bilgileri -->
-            <div class="step-content" id="content-1">
-                <div class="step-header">
-                    <h2>Konut Bilgileri</h2>
-                    <p>Evinizin oda ve yapısal bilgilerini girin.</p>
-                </div>
-                <div class="form-grid-2">
-                    <div class="form-group">
-                        <label>Net Metrekare (m²) <span class="required">*</span></label>
-                        <div class="input-with-controls">
-                            <input
-                                    type="number"
-                                    id="m2_Net"
-                                    value="1"
-                                    min="0"
-                                    max="800"
-                                    required
-                            >
-
-                            <div class="controls">
-                                <button type="button" class="control-btn minus">−</button>
-                                <button type="button" class="control-btn plus">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Oda Sayısı <span class="required">*</span></label>
-                        <div class="custom-select" id="room-select">
-                            <div class="select-selected" onclick="toggleDropdown('room-select')">
-                                <span id="selected-room">Seçiniz</span>
-                                <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="select-items">
-                                <div class="select-options">
-                                    <div class="select-option" onclick="selectOption('room', '1', '1')">1</div>
-                                    <div class="select-option" onclick="selectOption('room', '1.5', '1.5')">1.5</div>
-                                    <div class="select-option" onclick="selectOption('room', '2', '2')">2</div>
-                                    <div class="select-option" onclick="selectOption('room', '2.5', '2.5')">2.5</div>
-                                    <div class="select-option" onclick="selectOption('room', '3', '3')">3</div>
-                                    <div class="select-option" onclick="selectOption('room', '3.5', '3.5')">3.5</div>
-                                    <div class="select-option" onclick="selectOption('room', '4', '4')">4</div>
-                                    <div class="select-option" onclick="selectOption('room', '4.5', '4.5')">4.5</div>
-                                    <div class="select-option" onclick="selectOption('room', '5', '5')">5</div>
-                                    <div class="select-option" onclick="selectOption('room', '6', '6')">6</div>
-                                    <div class="select-option" onclick="selectOption('room', '7', '7')">7</div>
-                                    <div class="select-option" onclick="selectOption('room', '8', '8')">8</div>
-                                    <div class="select-option" onclick="selectOption('room', '10', '10')">10</div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="Room_number" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Salon Sayısı <span class="required">*</span></label>
-                        <div class="input-with-controls">
-                            <input
-                                    type="number"
-                                    id="Livingroom_number"
-                                    value="1"
-                                    min="0"
-                                    max="8"
-                                    required
-                            >
-
-                            <div class="controls">
-                                <button type="button" class="control-btn minus">−</button>
-                                <button type="button" class="control-btn plus">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Banyo Sayısı <span class="required">*</span></label>
-                        <div class="input-with-controls">
-                            <input
-                                    type="number"
-                                    id="Number_of_bathrooms"
-                                    value="1"
-                                    min="1"
-                                    max="8"
-                                    required
-                            >
-
-                            <div class="controls">
-                                <button type="button" class="control-btn minus">−</button>
-                                <button type="button" class="control-btn plus">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Bina Yaşı <span class="required">*</span></label>
-                        <div class="custom-select" id="age-select">
-                            <div class="select-selected" onclick="toggleDropdown('age-select')">
-                                <span id="selected-age">Seçiniz</span>
-                                <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="select-items">
-                                <div class="select-options">
-                                    <div class="select-option" onclick="selectOption('age', '0', '0')">0</div>
-                                    <div class="select-option" onclick="selectOption('age', '1', '1')">1</div>
-                                    <div class="select-option" onclick="selectOption('age', '2', '2')">2</div>
-                                    <div class="select-option" onclick="selectOption('age', '3', '3')">3</div>
-                                    <div class="select-option" onclick="selectOption('age', '4', '4')">4</div>
-                                    <div class="select-option" onclick="selectOption('age', '5-10', '5-10')">5-10</div>
-                                    <div class="select-option" onclick="selectOption('age', '11-15', '11-15')">11-15</div>
-                                    <div class="select-option" onclick="selectOption('age', '16-20', '16-20')">16-20</div>
-                                    <div class="select-option" onclick="selectOption('age', '21-25', '21-25')">21-25</div>
-                                    <div class="select-option" onclick="selectOption('age', '26-30', '26-30')">26-30</div>
-                                    <div class="select-option" onclick="selectOption('age', '31+', '31+')">31+</div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="Building_Age" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Bulunduğu Kat <span class="required">*</span></label>
-                        <div class="custom-select" id="floor-location-select">
-                            <div class="select-selected" onclick="toggleDropdown('floor-location-select')">
-                                <span id="selected-floor-location">Seçiniz</span>
-                                <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="select-items" id="floor-location-items">
-                                <div class="select-options" id="floor-location-options">
-                                    <div class="select-option" onclick="selectOption('floor-location', '-4', 'Bodrum -4')">Bodrum -4</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '-3', 'Bodrum -3')">Bodrum -3</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '-2', 'Bodrum -2')">Bodrum -2</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '-1', 'Bodrum -1')">Bodrum -1</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '0', 'Zemin Kat')">Zemin Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '1', '1. Kat')">1. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '2', '2. Kat')">2. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '3', '3. Kat')">3. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '4', '4. Kat')">4. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '5', '5. Kat')">5. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '6', '6. Kat')">6. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '7', '7. Kat')">7. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '8', '8. Kat')">8. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '9', '9. Kat')">9. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '10', '10. Kat')">10. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '11', '11. Kat')">11. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '12', '12. Kat')">12. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '13', '13. Kat')">13. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '14', '14. Kat')">14. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '15', '15. Kat')">15. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '16', '16. Kat')">16. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '17', '17. Kat')">17. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '18', '18. Kat')">18. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '19', '19. Kat')">19. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '20', '20. Kat')">20. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '21', '21. Kat')">21. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '22', '22. Kat')">22. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '23', '23. Kat')">23. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '24', '24. Kat')">24. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '25', '25. Kat')">25. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '26', '26. Kat')">26. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '27', '27. Kat')">27. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '28', '28. Kat')">28. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '29', '29. Kat')">29. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '30', '30. Kat')">30. Kat</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '99', 'Çatı Katı/Penthouse')">Çatı Katı/Penthouse</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '100', 'Villa Tipi')">Villa Tipi</div>
-                                    <div class="select-option" onclick="selectOption('floor-location', '101', 'Müstakil/Private')">Müstakil/Private</div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="Floor_location" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Toplam Kat Sayısı <span class="required">*</span></label>
-                        <div class="custom-select" id="total-floors-select">
-                            <div class="select-selected" onclick="toggleDropdown('total-floors-select')">
-                                <span id="selected-total-floors">Seçiniz</span>
-                                <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="select-items" id="total-floors-items">
-                                <div class="select-options" id="total-floors-options">
-                                    <div class="select-option" onclick="selectOption('total-floors', '1', '1 Katlı')">1 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '2', '2 Katlı')">2 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '3', '3 Katlı')">3 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '4', '4 Katlı')">4 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '5', '5 Katlı')">5 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '6', '6 Katlı')">6 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '7', '7 Katlı')">7 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '8', '8 Katlı')">8 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '9', '9 Katlı')">9 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '10', '10 Katlı')">10 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '11', '11 Katlı')">11 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '12', '12 Katlı')">12 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '13', '13 Katlı')">13 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '14', '14 Katlı')">14 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '15', '15 Katlı')">15 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '16', '16 Katlı')">16 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '17', '17 Katlı')">17 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '18', '18 Katlı')">18 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '19', '19 Katlı')">19 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '20', '20 Katlı')">20 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '21', '21 Katlı')">21 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '22', '22 Katlı')">22 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '23', '23 Katlı')">23 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '24', '24 Katlı')">24 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '25', '25 Katlı')">25 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '26', '26 Katlı')">26 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '27', '27 Katlı')">27 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '28', '28 Katlı')">28 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '29', '29 Katlı')">29 Katlı</div>
-                                    <div class="select-option" onclick="selectOption('total-floors', '30', '30 Katlı')">30 Katlı</div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="Number_of_floors" required>
-                    </div>
-                </div>
+            <div class="step-label">Konut Bilgileri</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="step-2">
+            <div class="step-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+                    <path d="M9 22v-4h6v4"></path>
+                    <path d="M8 6h.01"></path>
+                    <path d="M16 6h.01"></path>
+                    <path d="M12 6h.01"></path>
+                    <path d="M12 10h.01"></path>
+                    <path d="M12 14h.01"></path>
+                    <path d="M16 10h.01"></path>
+                    <path d="M16 14h.01"></path>
+                    <path d="M8 10h.01"></path>
+                    <path d="M8 14h.01"></path>
+                </svg>
             </div>
-
-            <!-- Adım 2: Bina Bilgileri -->
-            <div class="step-content" id="content-2">
-                <div class="step-header">
-                    <h2>Bina Bilgileri</h2>
-                    <p>Binanın ısıtma ve diğer özelliklerini girin.</p>
-                </div>
-                <div class="form-grid-2">
-                    <div class="form-group">
-                        <label>Isınma Tipi <span class="required">*</span></label>
-                        <div class="custom-select" id="heating-select">
-                            <div class="select-selected" onclick="toggleDropdown('heating-select')">
-                                <span id="selected-heating">Seçiniz</span>
-                                <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="select-items">
-                                <div class="select-options">
-                                    <div class="select-option" onclick="selectOption('heating', 'Natural Gas', 'Doğalgaz')">Doğalgaz</div>
-                                    <div class="select-option" onclick="selectOption('heating', 'Central Heating', 'Merkezi Isınma')">Merkezi Isınma</div>
-                                    <div class="select-option" onclick="selectOption('heating', 'Stove', 'Soba')">Soba</div>
-                                    <div class="select-option" onclick="selectOption('heating', 'Climate', 'Klima')">Klima</div>
-                                    <div class="select-option" onclick="selectOption('heating', 'Other Heating', 'Diğer')">Diğer</div>
-                                    <div class="select-option" onclick="selectOption('heating', 'Absent', 'Yok')">Yok</div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="Heating" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Krediye Uygun <span class="required">*</span></label>
-                        <div class="custom-select" id="loan-select">
-                            <div class="select-selected" onclick="toggleDropdown('loan-select')">
-                                <span id="selected-loan">Seçiniz</span>
-                                <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="select-items">
-                                <div class="select-options">
-                                    <div class="select-option" onclick="selectOption('loan', 'Yes', 'Evet')">Evet</div>
-                                    <div class="select-option" onclick="selectOption('loan', 'No', 'Hayır')">Hayır</div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="Available_for_Loan" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Kimden <span class="required">*</span></label>
-                        <div class="custom-select" id="fromwho-select">
-                            <div class="select-selected" onclick="toggleDropdown('fromwho-select')">
-                                <span id="selected-fromwho">Seçiniz</span>
-                                <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="select-items">
-                                <div class="select-options">
-                                    <div class="select-option" onclick="selectOption('fromwho', 'From the real estate office', 'Emlak Ofisinden')">Emlak Ofisinden</div>
-                                    <div class="select-option" onclick="selectOption('fromwho', 'From owner', 'Sahibinden')">Sahibinden</div>
-                                    <div class="select-option" onclick="selectOption('fromwho', 'From the construction company', 'İnşaat Firmasından')">İnşaat Firmasından</div>
-                                    <div class="select-option" onclick="selectOption('fromwho', 'From bank', 'Bankadan')">Bankadan</div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="From_who" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Zemin Türü (Laminat Parke)</label>
-                        <div class="custom-select" id="floor-select">
-                            <div class="select-selected" onclick="toggleDropdown('floor-select')">
-                                <span id="selected-floor">Diğer</span>
-                                <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="select-items">
-                                <div class="select-options">
-                                    <div class="select-option selected" onclick="selectOption('floor', '0', 'Yok')">Yok</div>
-                                    <div class="select-option" onclick="selectOption('floor', '1', 'Var')">Var</div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" id="Laminate_Floor" value="0">
-                    </div>
-                </div>
+            <div class="step-label">Bina Bilgileri</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="step-3">
+            <div class="step-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
             </div>
-
-            <!-- Adım 3: Diğer Bilgiler -->
-            <div class="step-content" id="content-3">
-                <div class="step-header">
-                    <h2>Diğer Bilgiler</h2>
-                    <p>Evin ek özelliklerini ve ulaşım bilgilerini girin.</p>
-                </div>
-
-                <h3 class="section-title">Cephe Yönleri</h3>
-                <div class="form-grid-4">
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Front_North"> Kuzey</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Front_South"> Güney</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Front_East"> Doğu</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Front_West"> Batı</label>
-                    </div>
-                </div>
-
-                <h3 class="section-title">Özellikler</h3>
-                <div class="form-grid-4">
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Balcony"> Balkon</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Elevator"> Asansör</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Car_Park"> Otopark</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Internet"> İnternet</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Security_Alarm"> Güvenlik/Alarm</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Smart_House"> Akıllı Ev</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Luxury_Facilities"> Lüks Tesisler</label>
-                    </div>
-                </div>
-
-                <h3 class="section-title">Ulaşım</h3>
-                <div class="form-grid-4">
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Metro"> Metro</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Metrobus"> Metrobüs</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Marmaray"> Marmaray</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Bus_stop"> Otobüs Durağı</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Minibus"> Minibüs</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Tram"> Tramvay</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Railway_station"> Tren İstasyonu</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="Airport"> Havalimanı</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="TEM"> TEM</label>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label><input type="checkbox" id="E_5"> E-5</label>
-                    </div>
-                </div>
+            <div class="step-label">Diğer Bilgiler</div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step" id="step-4">
+            <div class="step-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
             </div>
-
-            <!-- Adım 4: Sonuç -->
-            <div class="step-content" id="content-4">
-                <div class="step-header">
-                    <h2>Tahmin Sonucu</h2>
-                </div>
-                <div class="result-container" id="result">
-                    <div class="loading" id="loading">
-                        <div class="spinner"></div>
-                        <p>Tahmin hesaplanıyor...</p>
-                    </div>
-                    <div class="result-content" id="result-content" style="display: none;">
-                        <div class="result-icon">💰</div>
-                        <h3>Tahmini Ev Fiyatı</h3>
-                        <div class="price" id="predicted-price">0 ₺</div>
-                        <p class="result-note">Bu tahmin, girdiğiniz bilgilere göre makine öğrenmesi modeli tarafından hesaplanmıştır.</p>
-                    </div>
-                    <div class="error-content" id="error-content" style="display: none;">
-                        <div class="error-icon">⚠️</div>
-                        <h3>Hata Oluştu</h3>
-                        <p id="error-message"></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Butonlar -->
-            <div class="button-container">
-                <button type="button" class="btn btn-secondary" id="prev-btn" onclick="previousStep()" style="display: none;">
-                    Önceki
-                </button>
-                <button type="button" class="btn btn-primary" id="next-btn" onclick="nextStep()">
-                    Devam Et
-                </button>
-            </div>
+            <div class="step-label">Sonuç</div>
         </div>
     </div>
 
-    <script src="/static/script.js"></script>
+    <!-- Form Container -->
+    <div class="form-container">
+        <!-- Adım 0: Konum -->
+        <div class="step-content active" id="content-0">
+            <div class="step-header">
+                <h2>Konum</h2>
+                <p>Lütfen konum bilgisini girin.</p>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>İl <span class="required">*</span></label>
+                    <div class="custom-select disabled">
+                        <div class="select-selected">İstanbul</div>
+                    </div>
+                    <input type="hidden" id="City" value="İstanbul">
+                </div>
+                <div class="arrow-icon">→</div>
+                <div class="form-group">
+                    <label>İlçe <span class="required">*</span></label>
+                    <div class="custom-select" id="district-select">
+                        <div class="select-selected" onclick="toggleDistrictDropdown()">
+                            <span id="selected-district">İlçe Seç</span>
+                            <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="select-items" id="district-items">
+                            <div class="search-box">
+                                <input type="text" id="district-search" placeholder="İlçe ara"
+                                       oninput="filterDistricts()">
+                            </div>
+                            <div class="select-options" id="district-options">
+                                <div class="select-option" onclick="selectDistrict('Adalar')">Adalar</div>
+                                <div class="select-option" onclick="selectDistrict('Arnavutköy')">Arnavutköy</div>
+                                <div class="select-option" onclick="selectDistrict('Ataşehir')">Ataşehir</div>
+                                <div class="select-option" onclick="selectDistrict('Avcılar')">Avcılar</div>
+                                <div class="select-option" onclick="selectDistrict('Bağcılar')">Bağcılar</div>
+                                <div class="select-option" onclick="selectDistrict('Bahçelievler')">Bahçelievler</div>
+                                <div class="select-option" onclick="selectDistrict('Bakırköy')">Bakırköy</div>
+                                <div class="select-option" onclick="selectDistrict('Başakşehir')">Başakşehir</div>
+                                <div class="select-option" onclick="selectDistrict('Bayrampaşa')">Bayrampaşa</div>
+                                <div class="select-option" onclick="selectDistrict('Beşiktaş')">Beşiktaş</div>
+                                <div class="select-option" onclick="selectDistrict('Beykoz')">Beykoz</div>
+                                <div class="select-option" onclick="selectDistrict('Beylikdüzü')">Beylikdüzü</div>
+                                <div class="select-option" onclick="selectDistrict('Beyoğlu')">Beyoğlu</div>
+                                <div class="select-option" onclick="selectDistrict('Büyükçekmece')">Büyükçekmece</div>
+                                <div class="select-option" onclick="selectDistrict('Çatalca')">Çatalca</div>
+                                <div class="select-option" onclick="selectDistrict('Çekmeköy')">Çekmeköy</div>
+                                <div class="select-option" onclick="selectDistrict('Esenler')">Esenler</div>
+                                <div class="select-option" onclick="selectDistrict('Esenyurt')">Esenyurt</div>
+                                <div class="select-option" onclick="selectDistrict('Eyüpsultan')">Eyüpsultan</div>
+                                <div class="select-option" onclick="selectDistrict('Fatih')">Fatih</div>
+                                <div class="select-option" onclick="selectDistrict('Gaziosmanpaşa')">Gaziosmanpaşa</div>
+                                <div class="select-option" onclick="selectDistrict('Güngören')">Güngören</div>
+                                <div class="select-option" onclick="selectDistrict('Kadıköy')">Kadıköy</div>
+                                <div class="select-option" onclick="selectDistrict('Kağıthane')">Kağıthane</div>
+                                <div class="select-option" onclick="selectDistrict('Kartal')">Kartal</div>
+                                <div class="select-option" onclick="selectDistrict('Küçükçekmece')">Küçükçekmece</div>
+                                <div class="select-option" onclick="selectDistrict('Maltepe')">Maltepe</div>
+                                <div class="select-option" onclick="selectDistrict('Pendik')">Pendik</div>
+                                <div class="select-option" onclick="selectDistrict('Sancaktepe')">Sancaktepe</div>
+                                <div class="select-option" onclick="selectDistrict('Sarıyer')">Sarıyer</div>
+                                <div class="select-option" onclick="selectDistrict('Silivri')">Silivri</div>
+                                <div class="select-option" onclick="selectDistrict('Sultanbeyli')">Sultanbeyli</div>
+                                <div class="select-option" onclick="selectDistrict('Sultangazi')">Sultangazi</div>
+                                <div class="select-option" onclick="selectDistrict('Şile')">Şile</div>
+                                <div class="select-option" onclick="selectDistrict('Şişli')">Şişli</div>
+                                <div class="select-option" onclick="selectDistrict('Tuzla')">Tuzla</div>
+                                <div class="select-option" onclick="selectDistrict('Ümraniye')">Ümraniye</div>
+                                <div class="select-option" onclick="selectDistrict('Üsküdar')">Üsküdar</div>
+                                <div class="select-option" onclick="selectDistrict('Zeytinburnu')">Zeytinburnu</div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="District" required>
+                </div>
+                <div class="arrow-icon">→</div>
+                <div class="form-group">
+                    <label>Mahalle <span class="required">*</span></label>
+                    <input type="text" id="Neighborhood" placeholder="Mahalle adını giriniz (Örn: xxx Mah.)" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adım 1: Konut Bilgileri -->
+        <div class="step-content" id="content-1">
+            <div class="step-header">
+                <h2>Konut Bilgileri</h2>
+                <p>Evinizin oda ve yapısal bilgilerini girin.</p>
+            </div>
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Net Metrekare (m²) <span class="required">*</span></label>
+                    <div class="input-with-controls">
+                        <input
+                                type="number"
+                                id="m2_Net"
+                                min="0"
+                                max="800"
+                                placeholder="Net alanı giriniz. Örn: 110"
+                                required
+                        >
+
+                        <div class="controls">
+                            <button type="button" class="control-btn minus">−</button>
+                            <button type="button" class="control-btn plus">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Oda Sayısı <span class="required">*</span></label>
+                    <div class="custom-select" id="room-select">
+                        <div class="select-selected" onclick="toggleDropdown('room-select')">
+                            <span id="selected-room">Seçiniz</span>
+                            <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="select-items">
+                            <div class="select-options">
+                                <div class="select-option" onclick="selectOption('room', '1', '1')">1</div>
+                                <div class="select-option" onclick="selectOption('room', '1.5', '1.5')">1.5</div>
+                                <div class="select-option" onclick="selectOption('room', '2', '2')">2</div>
+                                <div class="select-option" onclick="selectOption('room', '2.5', '2.5')">2.5</div>
+                                <div class="select-option" onclick="selectOption('room', '3', '3')">3</div>
+                                <div class="select-option" onclick="selectOption('room', '3.5', '3.5')">3.5</div>
+                                <div class="select-option" onclick="selectOption('room', '4', '4')">4</div>
+                                <div class="select-option" onclick="selectOption('room', '4.5', '4.5')">4.5</div>
+                                <div class="select-option" onclick="selectOption('room', '5', '5')">5</div>
+                                <div class="select-option" onclick="selectOption('room', '6', '6')">6</div>
+                                <div class="select-option" onclick="selectOption('room', '7', '7')">7</div>
+                                <div class="select-option" onclick="selectOption('room', '8', '8')">8</div>
+                                <div class="select-option" onclick="selectOption('room', '10', '10')">10</div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="Room_number" required>
+                </div>
+                <div class="form-group">
+                    <label>Salon Sayısı <span class="required">*</span></label>
+                    <div class="input-with-controls">
+                        <input
+                                type="number"
+                                id="Livingroom_number"
+                                min="0"
+                                max="8"
+                                placeholder="Salon Sayısı"
+                                required
+                        >
+
+                        <div class="controls">
+                            <button type="button" class="control-btn minus">−</button>
+                            <button type="button" class="control-btn plus">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Banyo Sayısı <span class="required">*</span></label>
+                    <div class="input-with-controls">
+                        <input
+                                type="number"
+                                id="Number_of_bathrooms"
+                                min="1"
+                                max="8"
+                                placeholder="Banyo Sayısı"
+                                required
+                        >
+
+                        <div class="controls">
+                            <button type="button" class="control-btn minus">−</button>
+                            <button type="button" class="control-btn plus">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Bina Yaşı <span class="required">*</span></label>
+                    <div class="custom-select" id="age-select">
+                        <div class="select-selected" onclick="toggleDropdown('age-select')">
+                            <span id="selected-age">Seçiniz</span>
+                            <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="select-items">
+                            <div class="select-options">
+                                <div class="select-option" onclick="selectOption('age', '0', '0')">0</div>
+                                <div class="select-option" onclick="selectOption('age', '1', '1')">1</div>
+                                <div class="select-option" onclick="selectOption('age', '2', '2')">2</div>
+                                <div class="select-option" onclick="selectOption('age', '3', '3')">3</div>
+                                <div class="select-option" onclick="selectOption('age', '4', '4')">4</div>
+                                <div class="select-option" onclick="selectOption('age', '5-10', '5-10')">5-10</div>
+                                <div class="select-option" onclick="selectOption('age', '11-15', '11-15')">11-15</div>
+                                <div class="select-option" onclick="selectOption('age', '16-20', '16-20')">16-20</div>
+                                <div class="select-option" onclick="selectOption('age', '21-25', '21-25')">21-25</div>
+                                <div class="select-option" onclick="selectOption('age', '26-30', '26-30')">26-30</div>
+                                <div class="select-option" onclick="selectOption('age', '31+', '31+')">31+</div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="Building_Age" required>
+                </div>
+                <div class="form-group">
+                    <label>Bulunduğu Kat <span class="required">*</span></label>
+                    <div class="custom-select" id="floor-location-select">
+                        <div class="select-selected" onclick="toggleDropdown('floor-location-select')">
+                            <span id="selected-floor-location">Seçiniz</span>
+                            <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="select-items" id="floor-location-items">
+                            <div class="select-options" id="floor-location-options">
+                                <div class="select-option" onclick="selectOption('floor-location', '-4', 'Bodrum -4')">
+                                    Bodrum -4
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '-3', 'Bodrum -3')">
+                                    Bodrum -3
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '-2', 'Bodrum -2')">
+                                    Bodrum -2
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '-1', 'Bodrum -1')">
+                                    Bodrum -1
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '0', 'Zemin Kat')">
+                                    Zemin Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '1', '1. Kat')">1.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '2', '2. Kat')">2.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '3', '3. Kat')">3.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '4', '4. Kat')">4.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '5', '5. Kat')">5.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '6', '6. Kat')">6.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '7', '7. Kat')">7.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '8', '8. Kat')">8.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '9', '9. Kat')">9.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '10', '10. Kat')">10.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '11', '11. Kat')">11.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '12', '12. Kat')">12.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '13', '13. Kat')">13.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '14', '14. Kat')">14.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '15', '15. Kat')">15.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '16', '16. Kat')">16.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '17', '17. Kat')">17.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '18', '18. Kat')">18.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '19', '19. Kat')">19.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '20', '20. Kat')">20.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '21', '21. Kat')">21.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '22', '22. Kat')">22.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '23', '23. Kat')">23.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '24', '24. Kat')">24.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '25', '25. Kat')">25.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '26', '26. Kat')">26.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '27', '27. Kat')">27.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '28', '28. Kat')">28.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '29', '29. Kat')">29.
+                                    Kat
+                                </div>
+                                <div class="select-option" onclick="selectOption('floor-location', '30', '30. Kat')">30.
+                                    Kat
+                                </div>
+                                <div class="select-option"
+                                     onclick="selectOption('floor-location', '99', 'Çatı Katı/Penthouse')">Çatı
+                                    Katı/Penthouse
+                                </div>
+                                <div class="select-option"
+                                     onclick="selectOption('floor-location', '100', 'Villa Tipi')">Villa Tipi
+                                </div>
+                                <div class="select-option"
+                                     onclick="selectOption('floor-location', '101', 'Müstakil/Private')">
+                                    Müstakil/Private
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="Floor_location" required>
+                </div>
+                <div class="form-group">
+                    <label>Toplam Kat Sayısı <span class="required">*</span></label>
+                    <div class="custom-select" id="total-floors-select">
+                        <div class="select-selected" onclick="toggleDropdown('total-floors-select')">
+                            <span id="selected-total-floors">Seçiniz</span>
+                            <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="select-items" id="total-floors-items">
+                            <div class="select-options" id="total-floors-options">
+                                <div class="select-option" onclick="selectOption('total-floors', '1', '1 Katlı')">1
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '2', '2 Katlı')">2
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '3', '3 Katlı')">3
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '4', '4 Katlı')">4
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '5', '5 Katlı')">5
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '6', '6 Katlı')">6
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '7', '7 Katlı')">7
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '8', '8 Katlı')">8
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '9', '9 Katlı')">9
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '10', '10 Katlı')">10
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '11', '11 Katlı')">11
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '12', '12 Katlı')">12
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '13', '13 Katlı')">13
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '14', '14 Katlı')">14
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '15', '15 Katlı')">15
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '16', '16 Katlı')">16
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '17', '17 Katlı')">17
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '18', '18 Katlı')">18
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '19', '19 Katlı')">19
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '20', '20 Katlı')">20
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '21', '21 Katlı')">21
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '22', '22 Katlı')">22
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '23', '23 Katlı')">23
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '24', '24 Katlı')">24
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '25', '25 Katlı')">25
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '26', '26 Katlı')">26
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '27', '27 Katlı')">27
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '28', '28 Katlı')">28
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '29', '29 Katlı')">29
+                                    Katlı
+                                </div>
+                                <div class="select-option" onclick="selectOption('total-floors', '30', '30 Katlı')">30
+                                    Katlı
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="Number_of_floors" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adım 2: Bina Bilgileri -->
+        <div class="step-content" id="content-2">
+            <div class="step-header">
+                <h2>Bina Bilgileri</h2>
+                <p>Binanın ısıtma ve diğer özelliklerini girin.</p>
+            </div>
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Isınma Tipi <span class="required">*</span></label>
+                    <div class="custom-select" id="heating-select">
+                        <div class="select-selected" onclick="toggleDropdown('heating-select')">
+                            <span id="selected-heating">Seçiniz</span>
+                            <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="select-items">
+                            <div class="select-options">
+                                <div class="select-option" onclick="selectOption('heating', 'Natural Gas', 'Doğalgaz')">
+                                    Doğalgaz
+                                </div>
+                                <div class="select-option"
+                                     onclick="selectOption('heating', 'Central Heating', 'Merkezi Isınma')">Merkezi
+                                    Isınma
+                                </div>
+                                <div class="select-option" onclick="selectOption('heating', 'Stove', 'Soba')">Soba</div>
+                                <div class="select-option" onclick="selectOption('heating', 'Climate', 'Klima')">Klima
+                                </div>
+                                <div class="select-option" onclick="selectOption('heating', 'Other Heating', 'Diğer')">
+                                    Diğer
+                                </div>
+                                <div class="select-option" onclick="selectOption('heating', 'Absent', 'Yok')">Yok</div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="Heating" required>
+                </div>
+                <div class="form-group">
+                    <label>Krediye Uygun <span class="required">*</span></label>
+                    <div class="custom-select" id="loan-select">
+                        <div class="select-selected" onclick="toggleDropdown('loan-select')">
+                            <span id="selected-loan">Seçiniz</span>
+                            <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="select-items">
+                            <div class="select-options">
+                                <div class="select-option" onclick="selectOption('loan', 'Yes', 'Evet')">Evet</div>
+                                <div class="select-option" onclick="selectOption('loan', 'No', 'Hayır')">Hayır</div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="Available_for_Loan" required>
+                </div>
+                <div class="form-group">
+                    <label>Kimden <span class="required">*</span></label>
+                    <div class="custom-select" id="fromwho-select">
+                        <div class="select-selected" onclick="toggleDropdown('fromwho-select')">
+                            <span id="selected-fromwho">Seçiniz</span>
+                            <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="select-items">
+                            <div class="select-options">
+                                <div class="select-option"
+                                     onclick="selectOption('fromwho', 'From the real estate office', 'Emlak Ofisinden')">
+                                    Emlak Ofisinden
+                                </div>
+                                <div class="select-option"
+                                     onclick="selectOption('fromwho', 'From owner', 'Sahibinden')">Sahibinden
+                                </div>
+                                <div class="select-option"
+                                     onclick="selectOption('fromwho', 'From the construction company', 'İnşaat Firmasından')">
+                                    İnşaat Firmasından
+                                </div>
+                                <div class="select-option" onclick="selectOption('fromwho', 'From bank', 'Bankadan')">
+                                    Bankadan
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="From_who" required>
+                </div>
+                <div class="form-group">
+                    <label>Zemin Türü (Laminat Parke)<span class="required">*</span></label>
+                    <div class="custom-select" id="floor-select">
+                        <div class="select-selected" onclick="toggleDropdown('floor-select')">
+                            <span id="selected-floor">Seçiniz</span>
+                            <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="select-items">
+                            <div class="select-options">
+                                <div class="select-option" onclick="selectOption('floor', '1', 'Var')">Var</div>
+                                <div class="select-option" onclick="selectOption('floor', '0', 'Yok')">Yok</div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="Laminate_Floor" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adım 3: Diğer Bilgiler -->
+        <div class="step-content" id="content-3">
+            <div class="step-header">
+                <h2>Diğer Bilgiler</h2>
+                <p>Evin ek özelliklerini ve ulaşım bilgilerini girin.</p>
+            </div>
+
+            <h3 class="section-title">Cephe Yönleri</h3>
+            <div class="form-grid-4">
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Front_North"> Kuzey</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Front_South"> Güney</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Front_East"> Doğu</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Front_West"> Batı</label>
+                </div>
+            </div>
+
+            <h3 class="section-title">Özellikler</h3>
+            <div class="form-grid-4">
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Balcony"> Balkon</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Elevator"> Asansör</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Car_Park"> Otopark</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Internet"> İnternet</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Security_Alarm"> Güvenlik/Alarm</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Smart_House"> Akıllı Ev</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Luxury_Facilities"> Lüks Tesisler</label>
+                </div>
+            </div>
+
+            <h3 class="section-title">Ulaşım</h3>
+            <div class="form-grid-4">
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Metro"> Metro</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Metrobus"> Metrobüs</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Marmaray"> Marmaray</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Bus_stop"> Otobüs Durağı</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Minibus"> Minibüs</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Tram"> Tramvay</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Railway_station"> Tren İstasyonu</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="Airport"> Havalimanı</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="TEM"> TEM</label>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label><input type="checkbox" id="E_5"> E-5</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Adım 4: Sonuç -->
+        <div class="step-content" id="content-4">
+            <div class="step-header">
+                <h2>Tahmin Sonucu</h2>
+            </div>
+            <div class="result-container" id="result">
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Tahmin hesaplanıyor...</p>
+                </div>
+                <div class="result-content" id="result-content" style="display: none;">
+                    <div class="result-icon">💰</div>
+                    <h3>Tahmini Ev Fiyatı</h3>
+                    <div class="price" id="predicted-price">0 ₺</div>
+                    <p class="result-note">Bu tahmin, girdiğiniz bilgilere göre makine öğrenmesi modeli tarafından
+                        hesaplanmıştır.</p>
+                </div>
+                <div class="error-content" id="error-content" style="display: none;">
+                    <div class="error-icon">⚠️</div>
+                    <h3>Hata Oluştu</h3>
+                    <p id="error-message"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Butonlar -->
+        <div class="button-container">
+            <button type="button" class="btn btn-secondary" id="prev-btn" onclick="previousStep()"
+                    style="display: none;">
+                Önceki
+            </button>
+            <button type="button" class="btn btn-primary" id="next-btn" onclick="nextStep()">
+                Devam Et
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="/static/script.js"></script>
 </body>
 </html>
