@@ -189,7 +189,7 @@
                     <label>Oda Sayısı <span class="required">*</span></label>
                     <div class="custom-select" id="room-select">
                         <div class="select-selected" onclick="toggleDropdown('room-select')">
-                            <span id="selected-room">Seçiniz</span>
+                            <span id="selected-room">Oda Sayısı Seçiniz</span>
                             <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
                                       stroke-linecap="round" stroke-linejoin="round"/>
@@ -255,7 +255,7 @@
                     <label>Bina Yaşı <span class="required">*</span></label>
                     <div class="custom-select" id="age-select">
                         <div class="select-selected" onclick="toggleDropdown('age-select')">
-                            <span id="selected-age">Seçiniz</span>
+                            <span id="selected-age">Bina Yaşı Seçiniz</span>
                             <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
                                       stroke-linecap="round" stroke-linejoin="round"/>
@@ -283,7 +283,7 @@
                     <label>Bulunduğu Kat <span class="required">*</span></label>
                     <div class="custom-select" id="floor-location-select">
                         <div class="select-selected" onclick="toggleDropdown('floor-location-select')">
-                            <span id="selected-floor-location">Seçiniz</span>
+                            <span id="selected-floor-location">Kat Seçiniz</span>
                             <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
                                       stroke-linecap="round" stroke-linejoin="round"/>
@@ -416,7 +416,7 @@
                     <label>Toplam Kat Sayısı <span class="required">*</span></label>
                     <div class="custom-select" id="total-floors-select">
                         <div class="select-selected" onclick="toggleDropdown('total-floors-select')">
-                            <span id="selected-total-floors">Seçiniz</span>
+                            <span id="selected-total-floors">Toplam Kat Sayısı Seçiniz</span>
                             <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
                                       stroke-linecap="round" stroke-linejoin="round"/>
@@ -533,7 +533,7 @@
                     <label>Isınma Tipi <span class="required">*</span></label>
                     <div class="custom-select" id="heating-select">
                         <div class="select-selected" onclick="toggleDropdown('heating-select')">
-                            <span id="selected-heating">Seçiniz</span>
+                            <span id="selected-heating">Isınma Tipi Seçiniz</span>
                             <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
                                       stroke-linecap="round" stroke-linejoin="round"/>
@@ -561,10 +561,10 @@
                     <input type="hidden" id="Heating" required>
                 </div>
                 <div class="form-group">
-                    <label>Krediye Uygun <span class="required">*</span></label>
+                    <label>Krediye Uygun Mu? <span class="required">*</span></label>
                     <div class="custom-select" id="loan-select">
                         <div class="select-selected" onclick="toggleDropdown('loan-select')">
-                            <span id="selected-loan">Seçiniz</span>
+                            <span id="selected-loan">Krediye Uygunluğunu Seçiniz</span>
                             <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
                                 <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
                                       stroke-linecap="round" stroke-linejoin="round"/>
@@ -580,7 +580,7 @@
                     <input type="hidden" id="Available_for_Loan" required>
                 </div>
                 <div class="form-group">
-                    <label>Kimden <span class="required">*</span></label>
+                    <label>Kimden<span class="required">*</span></label>
                     <div class="custom-select" id="fromwho-select">
                         <div class="select-selected" onclick="toggleDropdown('fromwho-select')">
                             <span id="selected-fromwho">Seçiniz</span>
@@ -639,78 +639,116 @@
                 <p>Evin ek özelliklerini ve ulaşım bilgilerini girin.</p>
             </div>
 
-            <h3 class="section-title">Cephe Yönleri</h3>
-            <div class="form-grid-4">
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Front_North"> Kuzey</label>
+            <div class="section">
+                <div class="section-title">
+                    <span>Cephe Yönleri</span>
+                    <span class="section-count"><span class="count">0</span>/4</span>
                 </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Front_South"> Güney</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Front_East"> Doğu</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Front_West"> Batı</label>
-                </div>
-            </div>
-
-            <h3 class="section-title">Özellikler</h3>
-            <div class="form-grid-4">
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Balcony"> Balkon</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Elevator"> Asansör</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Car_Park"> Otopark</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Internet"> İnternet</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Security_Alarm"> Güvenlik/Alarm</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Smart_House"> Akıllı Ev</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Luxury_Facilities"> Lüks Tesisler</label>
+                <div class="checkbox-grid" data-section="cephe">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Front_North" data-label="Kuzey">
+                        <label for="Front_North">Kuzey</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Front_South" data-label="Güney">
+                        <label for="Front_South">Güney</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Front_East" data-label="Doğu">
+                        <label for="Front_East">Doğu</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Front_West" data-label="Batı">
+                        <label for="Front_West">Batı</label>
+                    </div>
                 </div>
             </div>
 
-            <h3 class="section-title">Ulaşım</h3>
-            <div class="form-grid-4">
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Metro"> Metro</label>
+            <!-- Özellikler -->
+            <div class="section">
+                <div class="section-title">
+                    <span>Özellikler</span>
+                    <span class="section-count"><span class="count">0</span>/7</span>
                 </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Metrobus"> Metrobüs</label>
+                <div class="checkbox-grid" data-section="ozellikler">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Balcony" data-label="Balkon">
+                        <label for="Balcony">Balkon</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Elevator" data-label="Asansör">
+                        <label for="Elevator">Asansör</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Car_Park" data-label="Otopark">
+                        <label for="Car_Park">Otopark</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Internet" data-label="İnternet">
+                        <label for="Internet">İnternet</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Security_Alarm" data-label="Güvenlik/Alarm">
+                        <label for="Security_Alarm">Güvenlik/Alarm</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Smart_House" data-label="Akıllı Ev">
+                        <label for="Smart_House">Akıllı Ev</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Luxury_Facilities" data-label="Lüks Tesisler">
+                        <label for="Luxury_Facilities">Lüks Tesisler</label>
+                    </div>
                 </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Marmaray"> Marmaray</label>
+            </div>
+
+            <!-- Ulaşım -->
+            <div class="section">
+                <div class="section-title">
+                    <span>Ulaşım</span>
+                    <span class="section-count"><span class="count">0</span>/10</span>
                 </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Bus_stop"> Otobüs Durağı</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Minibus"> Minibüs</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Tram"> Tramvay</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Railway_station"> Tren İstasyonu</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="Airport"> Havalimanı</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="TEM"> TEM</label>
-                </div>
-                <div class="form-group checkbox-group">
-                    <label><input type="checkbox" id="E_5"> E-5</label>
+                <div class="checkbox-grid" data-section="ulasim">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Metro" data-label="Metro">
+                        <label for="Metro">Metro</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Metrobus" data-label="Metrobüs">
+                        <label for="Metrobus">Metrobüs</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Marmaray" data-label="Marmaray">
+                        <label for="Marmaray">Marmaray</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Bus_stop" data-label="Otobüs Durağı">
+                        <label for="Bus_stop">Otobüs Durağı</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Minibus" data-label="Minibüs">
+                        <label for="Minibus">Minibüs</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Tram" data-label="Tramvay">
+                        <label for="Tram">Tramvay</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Railway_station" data-label="Tren İstasyonu">
+                        <label for="Railway_station">Tren İstasyonu</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="Airport" data-label="Havalimanı">
+                        <label for="Airport">Havalimanı</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="TEM" data-label="TEM">
+                        <label for="TEM">TEM</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="E_5" data-label="E-5">
+                        <label for="E_5">E-5</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -718,7 +756,7 @@
         <!-- Adım 4: Sonuç -->
         <div class="step-content" id="content-4">
             <div class="step-header">
-                <h2>Tahmin Sonucu</h2>
+                <h2>Tahmini Ev Fiyatı</h2>
             </div>
             <div class="result-container" id="result">
                 <div class="loading" id="loading">
@@ -726,11 +764,11 @@
                     <p>Tahmin hesaplanıyor...</p>
                 </div>
                 <div class="result-content" id="result-content" style="display: none;">
-                    <div class="result-icon">💰</div>
-                    <h3>Tahmini Ev Fiyatı</h3>
                     <div class="price" id="predicted-price">0 ₺</div>
                     <p class="result-note">Bu tahmin, girdiğiniz bilgilere göre makine öğrenmesi modeli tarafından
                         hesaplanmıştır.</p>
+                    <p class="result-note"> *** Tahminler, modelleme sürecinde kullanılan ve 2020 yılına ait konut
+                        fiyatlarını içeren veri setine dayanmaktadır. </p>
                 </div>
                 <div class="error-content" id="error-content" style="display: none;">
                     <div class="error-icon">⚠️</div>

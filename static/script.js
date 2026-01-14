@@ -106,8 +106,11 @@ function selectOption(type, value, displayText) {
 
     // Seçili olanı işaretle
     selectElement.querySelectorAll('.select-option').forEach(option => {
+        const normalizedOptionText = option.textContent.trim().replace(/\s+/g, ' ');
+        const normalizedDisplayText = displayText.trim().replace(/\s+/g, ' ');
+
         option.classList.remove('selected');
-        if (option.textContent === displayText) {
+        if (normalizedOptionText === normalizedDisplayText) {
             option.classList.add('selected');
         }
     });
@@ -128,8 +131,13 @@ function selectDistrict(district) {
 
     // Seçili olanı işaretle
     document.querySelectorAll('#district-options .select-option').forEach(option => {
+        // Boşlukları normalize et
+        // HTML yapısında satır sonu bulunuyor
+        const normalizedOptionText = option.textContent.trim().replace(/\s+/g, ' ');
+        const normalizedDistrict = district.trim().replace(/\s+/g, ' ');
+
         option.classList.remove('selected');
-        if (option.textContent === district) {
+        if (normalizedOptionText === normalizedDistrict) {
             option.classList.add('selected');
         }
     });
@@ -233,7 +241,10 @@ function validateCurrentStep() {
 
     if (currentStep === 0) {
         const district = document.getElementById('District').value;
-        const neighborhood = document.getElementById('Neighborhood').value;
+        const neighborhoodInput = document.getElementById('Neighborhood');
+        const neighborhood = neighborhoodInput.value.trim();
+
+        const neighborhoodRegex = /^[A-Za-zÇĞİÖŞÜçğıöşü\s]+ Mah\.$/;
 
         // District kontrolü
         if (!district || district.trim() === '') {
@@ -243,12 +254,12 @@ function validateCurrentStep() {
             document.querySelector('#district-select .select-selected').style.borderColor = '#d1d5db';
         }
 
-        // Neighborhood kontrolü
-        if (!neighborhood || neighborhood.trim() === '') {
-            document.getElementById('Neighborhood').style.borderColor = '#ef4444';
+        // Neighborhood kontrolü (Mah. formatı)
+        if (!neighborhood || !neighborhoodRegex.test(neighborhood)) {
+            neighborhoodInput.style.borderColor = '#ef4444';
             isValid = false;
         } else {
-            document.getElementById('Neighborhood').style.borderColor = '#d1d5db';
+            neighborhoodInput.style.borderColor = '#d1d5db';
         }
 
         if (!isValid) showAlert(GENERIC_ERROR_MESSAGE);
@@ -350,9 +361,38 @@ function validateCurrentStep() {
 }
 
 
+// Checkbox değişikliklerini dinle
+const checkboxItems = document.querySelectorAll('.checkbox-item');
+
+checkboxItems.forEach(item => {
+    const checkbox = item.querySelector('input[type="checkbox"]');
+
+    checkbox.addEventListener('change', () => {
+        item.classList.toggle('checked', checkbox.checked);
+        updateCounts();
+    });
+});
+
+// Sayaçları güncelle
+function updateCounts() {
+    document.querySelectorAll('[data-section]').forEach(section => {
+        const count = section.querySelectorAll('input[type="checkbox"]:checked').length;
+        const countElement = section.previousElementSibling.querySelector('.count');
+        if (countElement) {
+            countElement.textContent = count;
+        }
+    });
+}
+
+// Formdan checkbox verilerini al (collectFormData içinde kullanılacak)
 function getCheckboxValue(id) {
     return document.getElementById(id).checked ? 1 : 0;
 }
+
+// Sayfa yüklendiğinde başlangıç sayaçlarını güncelle
+document.addEventListener('DOMContentLoaded', function() {
+    updateCounts();
+});
 
 function collectFormData() {
     return {
@@ -541,4 +581,3 @@ function showAlert(message, type = "error", duration = 4000) {
         activeAlert = null;
     });
 }
-
