@@ -8,6 +8,7 @@ import numpy as np
 from pydantic import BaseModel
 import uvicorn
 import os
+import json
 
 # PATH
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -15,6 +16,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 MODEL_PATH = os.path.join(BASE_DIR, "..", "models", "istanbulHousePriceModel.pkl")
+NEIGHBORHOODS_PATH = os.path.join(BASE_DIR, "neighborhoods.json")
 
 app = FastAPI()
 
@@ -36,6 +38,10 @@ with open(MODEL_PATH, "rb") as f:
 
 pipeline = saved_data["pipeline"]
 target_transform = saved_data.get("target_transform", None)
+
+# Mahalle verileri yükleme
+with open(NEIGHBORHOODS_PATH, "r", encoding="utf-8") as f:
+    NEIGHBORHOODS = json.load(f)
 
 
 class HouseFeatures(BaseModel):
@@ -79,6 +85,17 @@ class HouseFeatures(BaseModel):
 @app.get("/")
 async def read_root():
     return FileResponse(os.path.join(TEMPLATES_DIR, "index.html"))
+
+
+# Mahalle endpoint
+@app.get("/api/neighborhoods")
+async def get_neighborhoods(district: str):
+    # /api/neighborhoods?district=Kadıköy
+    neighborhoods = NEIGHBORHOODS.get(district, [])
+    return {
+        "district": district,
+        "neighborhoods": neighborhoods
+    }
 
 
 # Tahmin endpoint

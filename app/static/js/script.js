@@ -55,7 +55,7 @@ function toggleDropdown(selectId) {
     }
 }
 
-// İlçe dropdown toggle (backward compatibility)
+// İlçe dropdown toggle
 function toggleDistrictDropdown() {
     toggleDropdown('district-select');
 }
@@ -122,7 +122,7 @@ function selectOption(type, value, displayText) {
     }
 }
 
-// İlçe seçimi (backward compatibility)
+// İlçe seçimi
 function selectDistrict(district) {
     selectedDistrict = district;
     document.getElementById('selected-district').textContent = district;
@@ -131,8 +131,6 @@ function selectDistrict(district) {
 
     // Seçili olanı işaretle
     document.querySelectorAll('#district-options .select-option').forEach(option => {
-        // Boşlukları normalize et
-        // HTML yapısında satır sonu bulunuyor
         const normalizedOptionText = option.textContent.trim().replace(/\s+/g, ' ');
         const normalizedDistrict = district.trim().replace(/\s+/g, ' ');
 
@@ -144,12 +142,88 @@ function selectDistrict(district) {
 
     // Border rengini düzelt
     document.querySelector('#district-select .select-selected').style.borderColor = '#d1d5db';
+
+    // Mahalle dropdown'unu güncelle
+    loadNeighborhoods(district);
+}
+
+// Backend'den mahalleleri yükle
+async function loadNeighborhoods(district) {
+    try {
+        const response = await fetch(`/api/neighborhoods?district=${encodeURIComponent(district)}`);
+
+        if (!response.ok) {
+            throw new Error('Mahalleler yüklenemedi');
+        }
+
+        const data = await response.json();
+        const neighborhoods = data.neighborhoods;
+
+        // Mahalle dropdown'unu temizle
+        const neighborhoodSelect = document.getElementById('neighborhood-select');
+        const neighborhoodOptions = document.getElementById('neighborhood-options');
+
+        // Önceki mahalleleri sil
+        neighborhoodOptions.innerHTML = '';
+
+        // Yeni mahalleleri ekle
+        neighborhoods.forEach(neighborhood => {
+            const option = document.createElement('div');
+            option.className = 'select-option';
+            option.textContent = neighborhood;
+            option.onclick = () => selectNeighborhood(neighborhood);
+            neighborhoodOptions.appendChild(option);
+        });
+
+        // Dropdown'ı temizle
+        document.getElementById('selected-neighborhood').textContent = 'Mahalle Seç';
+        document.getElementById('Neighborhood').value = '';
+        neighborhoodSelect.classList.remove('open');
+
+        console.log('Mahalleleri yüklendi:', neighborhoods);
+
+    } catch (error) {
+        console.error('Mahalleler yüklenirken hata:', error);
+        showAlert('Mahalleler yüklenemedi', 'error');
+    }
+}
+
+// Mahalle seçimi
+function selectNeighborhood(neighborhood) {
+    document.getElementById('selected-neighborhood').textContent = neighborhood;
+    document.getElementById('Neighborhood').value = neighborhood;
+    document.getElementById('neighborhood-select').classList.remove('open');
+
+    // Seçili olanı işaretle
+    document.querySelectorAll('#neighborhood-options .select-option').forEach(option => {
+        option.classList.remove('selected');
+        if (option.textContent.trim() === neighborhood.trim()) {
+            option.classList.add('selected');
+        }
+    });
+
+    // Border rengini düzelt
+    document.querySelector('#neighborhood-select .select-selected').style.borderColor = '#d1d5db';
 }
 
 // Filtreleme fonksiyonları
 function filterDistricts() {
     const searchValue = document.getElementById('district-search').value.toLowerCase();
     const options = document.querySelectorAll('#district-options .select-option');
+
+    options.forEach(option => {
+        const text = option.textContent.toLowerCase();
+        if (text.includes(searchValue)) {
+            option.classList.remove('hidden');
+        } else {
+            option.classList.add('hidden');
+        }
+    });
+}
+
+function filterNeighborhoods() {
+    const searchValue = document.getElementById('neighborhood-search').value.toLowerCase();
+    const options = document.querySelectorAll('#neighborhood-options .select-option');
 
     options.forEach(option => {
         const text = option.textContent.toLowerCase();
@@ -237,14 +311,11 @@ function updateStepDisplay() {
 }
 
 function validateCurrentStep() {
-    let isValid = true; // Genel validasyon durumu
+    let isValid = true;
 
     if (currentStep === 0) {
         const district = document.getElementById('District').value;
-        const neighborhoodInput = document.getElementById('Neighborhood');
-        const neighborhood = neighborhoodInput.value.trim();
-
-        const neighborhoodRegex = /^[A-Za-zÇĞİÖŞÜçğıöşü\s]+ Mah\.$/;
+        const neighborhood = document.getElementById('Neighborhood').value.trim();
 
         // District kontrolü
         if (!district || district.trim() === '') {
@@ -254,12 +325,12 @@ function validateCurrentStep() {
             document.querySelector('#district-select .select-selected').style.borderColor = '#d1d5db';
         }
 
-        // Neighborhood kontrolü (Mah. formatı)
-        if (!neighborhood || !neighborhoodRegex.test(neighborhood)) {
-            neighborhoodInput.style.borderColor = '#ef4444';
+        // Neighborhood kontrolü
+        if (!neighborhood || neighborhood === '') {
+            document.querySelector('#neighborhood-select .select-selected').style.borderColor = '#ef4444';
             isValid = false;
         } else {
-            neighborhoodInput.style.borderColor = '#d1d5db';
+            document.querySelector('#neighborhood-select .select-selected').style.borderColor = '#d1d5db';
         }
 
         if (!isValid) showAlert(GENERIC_ERROR_MESSAGE);
@@ -280,19 +351,17 @@ function validateCurrentStep() {
         requiredFields.forEach(field => {
             const element = document.getElementById(field.id);
 
-            // + / - butonlarına basınca sadece borderı eski haline döndür
             if (['m2_Net', 'Livingroom_number', 'Number_of_bathrooms'].includes(field.id)) {
-                const container = element.closest('.input-with-controls'); // input ve butonları saran div
+                const container = element.closest('.input-with-controls');
                 if (container) {
                     container.querySelectorAll('.control-btn').forEach(btn => {
                         btn.addEventListener('click', () => {
-                            element.style.borderColor = '#d1d5db'; // border griye dönsün
+                            element.style.borderColor = '#d1d5db';
                         });
                     });
                 }
             }
 
-            // Validasyon
             if (!element.value || element.value.trim() === '') {
                 if (field.selectId) {
                     document.querySelector(`#${field.selectId} .select-selected`).style.borderColor = '#ef4444';
@@ -307,11 +376,6 @@ function validateCurrentStep() {
                     element.style.borderColor = '#d1d5db';
                 }
             }
-        });
-
-        requiredFields.forEach(field => {
-            const element = document.getElementById(field.id);
-            console.log(`${field.id}:`, element.value);
         });
 
         if (!isValid) showAlert(GENERIC_ERROR_MESSAGE);
@@ -340,7 +404,6 @@ function validateCurrentStep() {
         return isValid;
     }
 
-    // Diğer adımlar için genel input validasyonu
     const currentContent = document.getElementById(`content-${currentStep}`);
     const requiredInputs = currentContent.querySelectorAll('input[required]:not([type="hidden"])');
 
@@ -356,7 +419,6 @@ function validateCurrentStep() {
     if (!isValid) showAlert(GENERIC_ERROR_MESSAGE);
     return isValid;
 }
-
 
 // Checkbox değişikliklerini dinle
 const checkboxItems = document.querySelectorAll('.checkbox-item');
@@ -381,7 +443,7 @@ function updateCounts() {
     });
 }
 
-// Formdan checkbox verilerini al (collectFormData içinde kullanılacak)
+// Formdan checkbox verilerini al
 function getCheckboxValue(id) {
     return document.getElementById(id).checked ? 1 : 0;
 }
@@ -433,7 +495,6 @@ function collectFormData() {
 async function makePrediction() {
     const formData = collectFormData();
 
-    // Loading göster
     document.getElementById('loading').style.display = 'block';
     document.getElementById('result-content').style.display = 'none';
     document.getElementById('error-content').style.display = 'none';
@@ -453,11 +514,9 @@ async function makePrediction() {
 
         const result = await response.json();
 
-        // Sonucu göster
         document.getElementById('loading').style.display = 'none';
         document.getElementById('result-content').style.display = 'block';
 
-        // Fiyatı formatla
         const formattedPrice = new Intl.NumberFormat('tr-TR', {
             style: 'currency',
             currency: 'TRY',
@@ -468,7 +527,6 @@ async function makePrediction() {
         document.getElementById('predicted-price').textContent = formattedPrice;
 
     } catch (error) {
-        // Hata göster
         document.getElementById('loading').style.display = 'none';
         document.getElementById('error-content').style.display = 'block';
         document.getElementById('error-message').textContent = error.message;
@@ -495,6 +553,37 @@ document.addEventListener('keypress', function(event) {
     }
 });
 
+// Number input validasyonu - negatif değerleri engelle
+document.addEventListener("DOMContentLoaded", () => {
+    const numberInputs = document.querySelectorAll('input[type="number"]');
+
+    numberInputs.forEach(input => {
+        // Input değiştiğinde kontrol et
+        input.addEventListener('change', () => {
+            let value = parseInt(input.value) || 0;
+            const min = parseInt(input.min) || 0;
+            const max = parseInt(input.max) || Infinity;
+
+            // Değeri min-max aralığına sıkıştır
+            if (value < min) {
+                input.value = min;
+            } else if (value > max) {
+                input.value = max;
+            }
+        });
+
+        // Klavyede yazarken kontrol et (gerçek zamanlı)
+        input.addEventListener('input', () => {
+            let value = input.value;
+
+            // Negatif işaret kontrolü
+            if (value.startsWith('-')) {
+                input.value = value.substring(1); // Negatif işareti kaldır
+            }
+        });
+    });
+});
+
 // Plus - Minus
 document.addEventListener("DOMContentLoaded", () => {
     const incrementButtons = document.querySelectorAll(".plus");
@@ -505,7 +594,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const input = btn.closest(".input-with-controls").querySelector("input");
             let value = parseInt(input.value) || 0;
 
-            // Sadece m2_Net id'si için step 5, diğerleri 1
             const step = input.id === "m2_Net" ? 5 : 1;
             const max = parseInt(input.max) || Infinity;
             input.value = Math.min(value + step, max);
@@ -526,7 +614,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Alert Message
 function showAlert(message, type = "error", duration = 4000) {
-    // Eski alert varsa kapat
     if (activeAlert) {
         activeAlert.remove();
         activeAlert = null;
@@ -558,13 +645,11 @@ function showAlert(message, type = "error", duration = 4000) {
         activeAlert = null;
     }, duration);
 
-    // Hover → timer durur
     alert.addEventListener("mouseenter", () => {
         clearTimeout(timeout);
         timerBar.style.animationPlayState = "paused";
     });
 
-    // Mouse çıkınca → devam
     alert.addEventListener("mouseleave", () => {
         timerBar.style.animationPlayState = "running";
         timeout = setTimeout(() => {
@@ -573,7 +658,6 @@ function showAlert(message, type = "error", duration = 4000) {
         }, 2000);
     });
 
-    // X ile kapatma
     alert.querySelector(".close-btn").addEventListener("click", () => {
         alert.remove();
         activeAlert = null;

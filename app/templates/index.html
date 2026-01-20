@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="static/img/favicon.png">
     <title>İstanbul Konut Fiyat Tahmini</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
@@ -155,7 +156,24 @@
                 <div class="arrow-icon">→</div>
                 <div class="form-group">
                     <label>Mahalle <span class="required">*</span></label>
-                    <input type="text" id="Neighborhood" placeholder="Mahalle adını giriniz (Örn: xxx Mah.)" required>
+                    <div class="custom-select" id="neighborhood-select">
+                        <div class="select-selected" onclick="toggleDropdown('neighborhood-select')">
+                            <span id="selected-neighborhood">Mahalle Seç</span>
+                            <svg class="select-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2"
+                                      stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="select-items" id="neighborhood-items">
+                            <div class="search-box">
+                                <input type="text" id="neighborhood-search" placeholder="Mahalle ara"
+                                       oninput="filterNeighborhoods()">
+                            </div>
+                            <div class="select-options" id="neighborhood-options">
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="Neighborhood" required>
                 </div>
             </div>
         </div>
