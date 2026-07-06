@@ -1,9 +1,9 @@
-name: Keep Render App Alive
+name: Keep Istanbul House Price Prediction Alive
 
 on:
   schedule:
-    - cron: "*/12 * * * *"
-  workflow_dispatch:
+    - cron: "*/14 6-22 * * *"
+  workflow_dispatch: 
 
 jobs:
   ping:
@@ -13,6 +13,6 @@ jobs:
         run: |
           STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://istanbulhousepriceprediction.onrender.com)
           echo "HTTP Status: $STATUS"
-          if [ "$STATUS" -ne 200 ]; then
-            exit 1
+          if [ "$STATUS" -ne 200 ] && [ "$STATUS" -ne 301 ]; then
+            echo "Warning: Application might be sleeping or returned $STATUS"
           fi
